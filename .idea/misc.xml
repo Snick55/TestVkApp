@@ -5,8 +5,8 @@
       <map>
         <entry key="..\:/Users/nikita/AndroidStudioProjects/TestVkApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/nikita/AndroidStudioProjects/TestVkApp/app/src/main/res/layout/fragment_details.xml" value="0.35" />
-        <entry key="..\:/Users/nikita/AndroidStudioProjects/TestVkApp/app/src/main/res/layout/fragment_gifs.xml" value="0.365625" />
-        <entry key="..\:/Users/nikita/AndroidStudioProjects/TestVkApp/app/src/main/res/layout/item_gif.xml" value="0.365625" />
+        <entry key="..\:/Users/nikita/AndroidStudioProjects/TestVkApp/app/src/main/res/layout/fragment_gifs.xml" value="0.1" />
+        <entry key="..\:/Users/nikita/AndroidStudioProjects/TestVkApp/app/src/main/res/layout/item_gif.xml" value="0.1" />
       </map>
     </option>
   </component>

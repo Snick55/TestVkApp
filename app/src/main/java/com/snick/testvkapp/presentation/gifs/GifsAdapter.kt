@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.snick.testvkapp.databinding.ItemGifBinding
 import com.snick.testvkapp.presentation.GifUi
@@ -14,10 +15,12 @@ class GifsAdapter(private val listener: Listener) :
 
     private var gifs: List<GifUi> = emptyList()
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun setUp(list: List<GifUi>) {
+        val diffUtilCallback = Callback(gifs, list)
+        val diffResult = DiffUtil.calculateDiff(diffUtilCallback)
         gifs = list
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -52,6 +55,30 @@ class GifsAdapter(private val listener: Listener) :
         fun handle(gif: GifUi)
     }
 
+    private class Callback(
+        private val oldList: List<GifUi>,
+        private val newList: List<GifUi>
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            val oldGif = oldList[oldItemPosition]
+            val newGif = newList[newItemPosition]
+            return oldGif.id == newGif.id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            val oldGif = oldList[oldItemPosition]
+            val newGif = newList[newItemPosition]
+            return oldGif == newGif
+        }
+    }
+
 }
+
+
+
 
 

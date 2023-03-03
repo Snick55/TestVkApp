@@ -3,13 +3,14 @@ package com.snick.testvkapp.data
 import com.snick.testvkapp.domain.GifsDomain
 import java.lang.Exception
 import java.net.UnknownHostException
+import javax.inject.Inject
 
 interface GifsDataToDomainMapper {
 
     fun map(gifs: List<GifData>): GifsDomain
     fun map(e: Exception): GifsDomain
 
-    class Base: GifsDataToDomainMapper{
+    class Base @Inject constructor() : GifsDataToDomainMapper{
 
         override fun map(gifs: List<GifData>): GifsDomain {
             return GifsDomain.Success(gifs.map { it.toDomain() })

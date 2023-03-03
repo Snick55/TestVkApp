@@ -28,7 +28,7 @@ class FragmentDetails: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).setTitle(R.string.title_details)
-        gifUi.show(binding.gif)
+        gifUi.show(binding.gif,false)
         binding.title.text = gifUi.title
 
     }

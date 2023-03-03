@@ -6,6 +6,7 @@ import com.snick.testvkapp.data.AppExceptions
 import com.snick.testvkapp.data.NoInternetException
 import com.snick.testvkapp.data.NoSuchGifsExceptions
 import com.snick.testvkapp.presentation.GifsUi
+import javax.inject.Inject
 
 interface GifsDomainToUiMapper {
 
@@ -13,7 +14,7 @@ interface GifsDomainToUiMapper {
     fun map(e: AppExceptions): GifsUi
 
 
-    class Base(private val resourceProvider: ResourceProvider): GifsDomainToUiMapper{
+    class Base @Inject constructor (private val resourceProvider: ResourceProvider): GifsDomainToUiMapper{
 
 
         override fun map(gifs: List<GifDomain>): GifsUi {

@@ -2,6 +2,7 @@ package com.snick.testvkapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.snick.testvkapp.R
@@ -20,9 +21,8 @@ class MainActivity : AppCompatActivity() {
          toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
-        if (savedInstanceState == null) {
-            val fragment = FragmentGifs()
-            supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+        if (supportFragmentManager.backStackEntryCount > 0){
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
         supportFragmentManager.addOnBackStackChangedListener {
@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
+        }
+
+        if (savedInstanceState == null) {
+            val fragment = FragmentGifs()
+            supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
         }
     }
 

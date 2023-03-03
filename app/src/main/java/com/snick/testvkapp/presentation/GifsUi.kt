@@ -25,11 +25,20 @@ data class GifUi(
     val title: String,
     val type: String
 ) : Serializable {
-    fun show(imageView: ImageView) {
-        Glide.with(imageView.context)
-            .asGif()
-            .placeholder(R.drawable.ic_placeholder)
-            .load(url)
-            .into(imageView)
+    fun show(imageView: ImageView,isCentred: Boolean = true) {
+       if (isCentred) {
+           Glide.with(imageView.context)
+               .asGif()
+               .centerCrop()
+               .placeholder(R.drawable.ic_placeholder)
+               .load(url)
+               .into(imageView)
+       }else{
+           Glide.with(imageView.context)
+               .asGif()
+               .placeholder(R.drawable.ic_placeholder)
+               .load(url)
+               .into(imageView)
+       }
     }
 }

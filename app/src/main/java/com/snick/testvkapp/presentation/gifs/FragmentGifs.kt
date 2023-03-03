@@ -15,23 +15,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.snick.testvkapp.presentation.MainActivity
 import com.snick.testvkapp.R
 import com.snick.testvkapp.core.App
+import com.snick.testvkapp.core.appComponent
 import com.snick.testvkapp.databinding.FragmentGifsBinding
 import com.snick.testvkapp.presentation.GifUi
 import com.snick.testvkapp.presentation.GifsUi
 import com.snick.testvkapp.presentation.details.FragmentDetails
+import javax.inject.Inject
 
 class FragmentGifs : Fragment(), GifsAdapter.Listener {
 
     private lateinit var binding: FragmentGifsBinding
 
-    private lateinit var viewModel: GifsViewModel
+    @Inject
+    lateinit var viewModel: GifsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = (requireContext().applicationContext as App).viewModel
+        requireContext().appComponent.inject(this)
         binding = FragmentGifsBinding.inflate(inflater, container, false)
         return binding.root
     }

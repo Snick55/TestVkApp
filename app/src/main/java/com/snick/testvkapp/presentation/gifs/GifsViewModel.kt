@@ -9,8 +9,9 @@ import com.snick.testvkapp.domain.GifsDomainToUiMapper
 import com.snick.testvkapp.domain.GifsInteractor
 import com.snick.testvkapp.presentation.GifsUi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class GifsViewModel(
+class  GifsViewModel @Inject constructor(
     private val interactor: GifsInteractor,
     private val mapper: GifsDomainToUiMapper
 ):ViewModel() {
