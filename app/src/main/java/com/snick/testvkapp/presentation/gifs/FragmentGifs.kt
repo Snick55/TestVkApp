@@ -90,7 +90,9 @@ class FragmentGifs : Fragment(), GifsAdapter.Listener {
         }
 
         binding.tryAgainBtn.setOnClickListener {
-            viewModel.fetchGifs(lastQuery.ifBlank { "funny" })
+            binding.progress.visibility = View.VISIBLE
+            binding.errorContainer.visibility = View.INVISIBLE
+            viewModel.fetchGifs(lastQuery)
         }
     }
 
