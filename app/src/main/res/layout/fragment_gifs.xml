@@ -49,6 +49,8 @@
             tools:text="@string/no_internet_connection" />
 
         <com.google.android.material.button.MaterialButton
+            app:cornerRadius="16dp"
+            android:backgroundTint="@color/purple_200"
             android:id="@+id/try_again_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

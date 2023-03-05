@@ -1,6 +1,7 @@
 package com.snick.testvkapp.presentation.gifs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,16 +26,25 @@ import javax.inject.Inject
 class FragmentGifs : Fragment(), GifsAdapter.Listener {
 
     private lateinit var binding: FragmentGifsBinding
+    private var lastQuery = ""
 
     @Inject
     lateinit var viewModel: GifsViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireContext().appComponent.inject(this)
+        lastQuery = viewModel.readQuery()
+        viewModel.fetchGifs(lastQuery)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        requireContext().appComponent.inject(this)
+
         binding = FragmentGifsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,14 +57,22 @@ class FragmentGifs : Fragment(), GifsAdapter.Listener {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query == null || query.isBlank())
+                if (query == null || query.isBlank()) {
+
                     return true
-                else
+                }
+                else {
+                    viewModel.currentQuery = query
+                    binding.recyclerGifs.visibility = View.GONE
+                    binding.progress.visibility = View.VISIBLE
+                    viewModel.saveQuery(query)
                     viewModel.fetchGifs(query)
+                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                lastQuery = newText?:""
                 return false
             }
         })
@@ -72,7 +90,7 @@ class FragmentGifs : Fragment(), GifsAdapter.Listener {
         }
 
         binding.tryAgainBtn.setOnClickListener {
-            viewModel.fetchGifs()
+            viewModel.fetchGifs(lastQuery.ifBlank { "funny" })
         }
     }
 

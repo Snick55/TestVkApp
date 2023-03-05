@@ -19,12 +19,16 @@ class  GifsViewModel @Inject constructor(
     private val _gifs = MutableLiveData<GifsUi>(GifsUi.Loading())
     val gifs: LiveData<GifsUi> = _gifs
 
-    init {
-        fetchGifs()
-    }
+    var currentQuery: String = "funny"
 
-    fun fetchGifs(query: String ="funny") = viewModelScope.launch{
+    fun fetchGifs(query: String =currentQuery) = viewModelScope.launch{
       val res =  interactor.fetchGifs(query)
         _gifs.value = res.map(mapper)
     }
+
+    fun saveQuery(query: String){
+        interactor.saveQuery(query)
+    }
+
+    fun readQuery(): String = interactor.readQuery()
 }
